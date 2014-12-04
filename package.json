@@ -1,0 +1,25 @@
+{
+  "name": "iotdb-timers",
+  "version": "0.0.1",
+  "description": "Useful timers, such as \"once a day\", \"sunset\", etc.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dpjanes/iotdb-timers"
+  },
+  "keywords": [
+    "iotdb",
+    "timers",
+    "suncalc",
+    "moment"
+  ],
+  "author": "David P. Janes",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/dpjanes/iotdb-timers/issues"
+  },
+  "homepage": "https://github.com/dpjanes/iotdb-timers"
+}
