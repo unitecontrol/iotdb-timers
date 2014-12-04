@@ -7,10 +7,11 @@ Clever timers, such as alarm clocks, on-offs, sunrise / sunset, etc.
 
 * mostly second oriented, not millisecond like Javascript
 * if <code>bunyan</code> is installed logging will look a lot better
+* time offset related stuff doesn't work yet, sorry
 
 ## Examples
 
-### once per minute
+### once per minute (on the minute)
 
 	var timers = require('iotdb-timers')
 	
@@ -35,7 +36,7 @@ The <code>event</code> dictionary is full of goodies:
       "name": "once per minute"
     }
 
-## every 5 minutes
+## every 5 minutes (on the minute)
 
     timers.minute_timer(5, function(event) {
     })
@@ -49,20 +50,31 @@ The <code>event</code> dictionary is full of goodies:
     })
 
 
-## once per hour
+## once per hour (on the hour)
 
     timers.hour_timer(function(event) {
     })
 
-## once per day
+## once per day (at midnight)
 
     timers.day_timer(function(event) {
     })
 
 ## at sunset
 
+    timers.setLocation(43.7, -79.4);
+
     timers.sunset(function(event) {
     })
+
+or if you need to specify the different lat/lons
+
+    timers.sunset({
+        latitude: 43.7,
+        longitude: -79.4
+    }, function(event) {
+    })
+
 
 ## at sunrise
 

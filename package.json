@@ -1,25 +1,29 @@
 {
-  "name": "iotdb-timers",
-  "version": "0.0.1",
-  "description": "Useful timers, such as \"once a day\", \"sunset\", etc.",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dpjanes/iotdb-timers"
-  },
-  "keywords": [
-    "iotdb",
-    "timers",
-    "suncalc",
-    "moment"
-  ],
-  "author": "David P. Janes",
-  "license": "Apache",
-  "bugs": {
-    "url": "https://github.com/dpjanes/iotdb-timers/issues"
-  },
-  "homepage": "https://github.com/dpjanes/iotdb-timers"
+    "author": "David P. Janes", 
+    "bugs": {
+        "url": "https://github.com/dpjanes/iotdb-timers/issues"
+    }, 
+    "dependencies": {
+        "moment": "~2.8.4", 
+        "suncalc": "~1.6.0"
+    }, 
+    "description": "Useful timers, such as \"once a day\", \"sunset\", etc.", 
+    "homepage": "https://github.com/dpjanes/iotdb-timers", 
+    "keywords": [
+        "iotdb", 
+        "timers", 
+        "suncalc", 
+        "moment"
+    ], 
+    "license": "Apache-2.0", 
+    "main": "main.js", 
+    "name": "iotdb-timers", 
+    "repository": {
+        "type": "git", 
+        "url": "https://github.com/dpjanes/iotdb-timers"
+    }, 
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }, 
+    "version": "0.0.4"
 }

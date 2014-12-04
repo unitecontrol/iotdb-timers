@@ -41,6 +41,10 @@ Sun.prototype._setup = function(paramd) {
     var self = this;
 
     self.paramd = _.defaults(paramd, {});
+    self.paramd = _.defaults(self.paramd, {
+        latitude: timer.defaults.latitude,
+        longitude: timer.defaults.longitude,
+    });
     self.when = null;
 
     // heartbeat
@@ -57,7 +61,7 @@ Sun.prototype._setup = function(paramd) {
 Sun.prototype._recalculate = function() {
     var self = this;
 
-    var td = suncalc.getTimes(new Date(), 43.7, -79.4)
+    var td = suncalc.getTimes(new Date(), self.paramd.latitude, self.paramd.longitude);
     var dt_when = td[self.paramd.what];
 
     self.when = new DateTime(dt_when);

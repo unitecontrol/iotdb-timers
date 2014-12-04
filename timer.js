@@ -50,6 +50,21 @@ var format2 = function(d) {
 }
 
 /**
+ *  Internal for package ... mainly
+ */
+var defaults = {
+    latitude: 43.7, 
+    longitude: -79.4
+};
+
+/**
+ */
+var setLocation = function(latitude, longitude) {
+    defaults.latitude = latitude;
+    defaults.longitude = longitude;
+};
+
+/**
  */
 var Timer = function () {
     var self = this;
@@ -263,19 +278,8 @@ Timer.prototype._scheduler = function() {
 };
 
 /*
-var a = new Timer();
-a._schedule({
-    name: "every minute",
-    second: 0,
-    minute_repeat: 1
-})
-a._schedule({
-    name: "every 90 seconds",
-    second: 0,
-    minute_repeat: 1.5
-})
- */
-/*
  *  API
  */
 exports.Timer = Timer;
+exports.defaults = defaults;
+exports.setLocation = setLocation;
