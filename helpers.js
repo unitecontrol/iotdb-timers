@@ -96,8 +96,10 @@ exports.make_function = function(_cls, _number) {
             callback = paramd;
             paramd = {};
         } else if (_.isNumber(paramd)) {
-            paramd = {}
-            paramd[_number] = paramd;
+            var d = {}
+            d[_number] = paramd;
+
+            paramd = d;
         }
 
         var timer = new _cls(paramd);

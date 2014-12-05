@@ -1,11 +1,11 @@
 /*
- *  main.js
+ *  timers/once.js
  *
  *  David Janes
  *  IOTDB.org
- *  2014-12-04
+ *  2014-12-05
  *
- *  Entry point for iotdb-timers
+ *  Non-repeating timer
  *
  *  Copyright [2013-2014] [David P. Janes]
  *
@@ -24,14 +24,18 @@
 
 "use strict";
 
-var _copy = function(module) {
-    for (var name in module) {
-        exports[name] = module[name];
-    }
+var _ = require("../helpers");
+var timer = require('../timer');
+
+/**
+ *  Fire an event every day
+ */
+exports.Once = function (paramd) {
+    this.schedule(_.defaults(paramd, {
+        id: 'timer',
+        name: "at a set time"
+    }));
 };
 
-_copy(require('./timers/day'));
-_copy(require('./timers/minute'));
-_copy(require('./timers/hour'));
-_copy(require('./timers/sun'));
-_copy(require('./timers/once'));
+exports.Once.prototype = new timer.Timer();
+exports.once = _.make_function(exports.Once, "second_delta");

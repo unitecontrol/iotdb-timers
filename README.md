@@ -75,7 +75,6 @@ or if you need to specify the different lat/lons
     }, function(event) {
     })
 
-
 ## at sunrise
 
     timers.sunrise(function(event) {
@@ -100,7 +99,6 @@ or
 	console.log("sunrise @", sunrise.getDate());
 	console.log("sunrise (d)", sunrise.getWhen());
 
-    
 ## other solar events
 
 See [SunCalc](https://github.com/mourner/suncalc) for more definutions.
@@ -123,6 +121,17 @@ See [SunCalc](https://github.com/mourner/suncalc) for more definutions.
 
 Tell me if you need these and I'll add them.
 
+## run once in 30 seconds
 
+    timers.once(30, function(when) {
+    });
 
+or 
+
+    timers.once({
+        second_delta: 30
+    }, function(when) {
+    });
+
+Also try <code>minute\_delta</code> and <code>hour\_delta</code>.
 

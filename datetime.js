@@ -26,6 +26,7 @@
  */
 
 var _ = require("./helpers.js");
+var moment = require("moment");
 
 var format2 = function(d) {
     d = Math.abs(d) % 100
@@ -75,7 +76,10 @@ var DateTime = function (paramd) {
         hour: dt_now.getHours(),
         minute: dt_now.getMinutes(),
         second: dt_now.getSeconds(),
-        tz: -dt_now.getTimezoneOffset()
+        tz: -dt_now.getTimezoneOffset(),
+        second_delta: 0,
+        minute_delta: 0,
+        hour_delta: 0
     });
 
     self._dd = {}
@@ -120,6 +124,11 @@ DateTime.prototype.set = function(paramd) {
     ];
 
     var dt_when = new Date(whens.join(""));
+
+    var delta = paramd.second_delta + paramd.minute_delta * 60 + paramd.hour_delta * 3600
+    if (delta) {
+        dt_when = moment(dt_when).add(delta, 'seconds').toDate();
+    }
 
     paramd.epoch = dt_when.getTime() / 1000.0;
     paramd.isoweekday = ( dt_when.getDay() + 6 ) % 7 + 1;
