@@ -30,8 +30,11 @@ var _copy = function(module) {
     }
 };
 
+_copy(require('./timer'));
 _copy(require('./timers/day'));
 _copy(require('./timers/minute'));
 _copy(require('./timers/hour'));
 _copy(require('./timers/sun'));
 _copy(require('./timers/once'));
+
+exports.DateTime = require('./datetime').DateTime;
