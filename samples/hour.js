@@ -18,24 +18,24 @@ timers.hour_timer(2, function(when) {
 
 
 /**
- *  minute_delta: run this many minutes after the hour
+ *  minute: run this many minutes after the hour
  *  in this case, at ##:##:30
  */
 timers.hour_timer({
-    minute_delta: 30
+    minute: 30
 }, function(when) {
     console.log("+ once an hour, at ##:30:##");
 });
 
 
 /**
- *  minute_delta: run this many minutes after the hour
+ *  minute: run this many minutes after the hour
  *  in this case, at ##:##:30
  *
  *  hour_repeat: run only once this many hours
  */
 timers.hour_timer({
-    minute_delta: 30,
+    minute: 30,
     hour_repeat: 4
 }, function(when) {
     console.log("+ once every 4 hours, at ##:30:##");

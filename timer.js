@@ -225,8 +225,7 @@ Timer.prototype._execute = function(event) {
 
     var dd = self._scrub(event);
 
-    // console.log("HERE:XXX", self);
-    dd.__unique_id = self.__unique_id;
+    // dd.__unique_id = self.__unique_id;
     self.emit(dd.id ? dd.id : 'timer', dd);
 
     logger.info({
@@ -284,9 +283,6 @@ Timer.prototype._scheduler = function() {
         self.events.sort(event_sorter);
     }
 
-    if (self.events.length === 0) {
-        return
-    }
     */
 
     // console.log("HERE:A", self.events.length, self.__unique_id);
@@ -298,13 +294,16 @@ Timer.prototype._scheduler = function() {
 
         self._execute(event);
 
-        if (self._reschedule(event)) {
-            self.events.sort(event_sorter);
-        } else {
+        if (!self._reschedule(event)) {
             self.events.shift();
         }
-
     }
+
+    if (self.events.length === 0) {
+        return;
+    }
+
+    self.events.sort(event_sorter);
 
     var delta = self.events[0].compare()
     logger.info({
