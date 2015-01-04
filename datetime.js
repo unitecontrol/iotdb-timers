@@ -82,6 +82,8 @@ var DateTime = function (paramd) {
         hour_delta: 0
     });
 
+    // console.log("HERE:YYY", paramd);
+
     self._dd = {}
     self.set(paramd);
 };
@@ -125,7 +127,7 @@ DateTime.prototype.set = function(paramd) {
 
     var dt_when = new Date(whens.join(""));
 
-    var delta = paramd.second_delta + paramd.minute_delta * 60 + paramd.hour_delta * 3600
+    var delta = paramd.second_delta + paramd.minute_delta * 60 + paramd.hour_delta * 3600;
     if (delta) {
         dt_when = moment(dt_when).add(delta, 'seconds').toDate();
     }

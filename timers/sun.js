@@ -5,9 +5,9 @@
  *  IOTDB.org
  *  2014-12-03
  *
- *  Minute timer
+ *  Timer based on solar events
  *
- *  Copyright [2013-2014] [David P. Janes]
+ *  Copyright [2013-2015] [David P. Janes]
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,6 +33,7 @@ var suncalc = require('suncalc');
  *  Fire an event every day
  */
 var Sun = function (paramd) {
+    timer.Timer.call(this);
 };
 
 Sun.prototype = new timer.Timer();
@@ -73,6 +74,7 @@ Sun.prototype._recalculate = function() {
 /* make all the functions */
 var _make = function(name_what, name_class, name_function) {
     exports[name_class] = function(paramd) {
+        Sun.call(this);
         var self = this;
         
         paramd = _.defaults(paramd, {

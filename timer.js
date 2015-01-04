@@ -64,6 +64,8 @@ var setLocation = function(latitude, longitude) {
     defaults.longitude = longitude;
 };
 
+var unique_id = 0;
+
 /**
  */
 var Timer = function () {
@@ -71,9 +73,12 @@ var Timer = function () {
 
     self.events = [];
     self.when = null;
+    self.__unique_id = unique_id++;
 
+    // console.log("EVENTS", self._events);
+    self._events = undefined
     events.EventEmitter.call(this);
-
+    self._events.__unique_id = self.__unique_id;
 };
 
 util.inherits(Timer, events.EventEmitter);
@@ -172,7 +177,7 @@ Timer.prototype._schedule = function(paramd) {
             method: "_schedule",
             cause: "likely the programmer or data, often not serious",
             event: event.get(),
-            unique_id: self.unique_id,
+            unique_id: self.__unique_id,
             initd: paramd.initd,
             driverd: paramd.driverd
         }, "date is in the past any this does not repeat -- not scheduling");
@@ -184,7 +189,7 @@ Timer.prototype._schedule = function(paramd) {
             var e = self.events[ei];
             var id = e.get().id;
             if (e.get().id === paramd.id) {
-                self.events.slice(ei, 1);
+                self.events.splice(ei, 1);
                 break;
             }
         }
@@ -220,12 +225,14 @@ Timer.prototype._execute = function(event) {
 
     var dd = self._scrub(event);
 
+    // console.log("HERE:XXX", self);
+    dd.__unique_id = self.__unique_id;
     self.emit(dd.id ? dd.id : 'timer', dd);
 
     logger.info({
         method: "_execute",
         event: dd,
-        unique_id: self.unique_id,
+        unique_id: self.__unique_id,
     }, "timer change")
 };
 
@@ -246,6 +253,43 @@ Timer.prototype._scheduler = function() {
 
     self.events.sort(event_sorter);
 
+    /*
+    // execute all events ready to go
+    var emax = null;
+    for (var ei in self.events) {
+        var event = self.events[ei]
+        if (event.compare() > 0) {
+            break;
+        }
+
+        console.log("---");
+        console.log("HERE:XXX", event, event.compare())
+
+        self._execute(event);
+        emax = ei + 1;
+    }
+        console.log("---");
+
+    // reschedule (and delete if not rescheduable) events that were executed
+    if (emax !== null) {
+        for (var ei = 0; ei < emax; ei++) {
+            var event = self.events[ei]
+            if (!self._reschedule(event)) {
+                self.events.splice(ei, 1);
+                emax--;
+                ei--;
+            }
+        }
+
+        self.events.sort(event_sorter);
+    }
+
+    if (self.events.length === 0) {
+        return
+    }
+    */
+
+    // console.log("HERE:A", self.events.length, self.__unique_id);
     while (true) {
         var event = self.events[0]
         if (event.compare() > 0) {
@@ -260,16 +304,13 @@ Timer.prototype._scheduler = function() {
             self.events.shift();
         }
 
-        if (self.events.length === 0) {
-            return
-        }
     }
 
     var delta = self.events[0].compare()
     logger.info({
         method: "_scheduler",
         next_run: delta,
-        unique_id: self.unique_id,
+        unique_id: self.__unique_id,
     }, "schedule updated");
 
     setTimeout(function() {

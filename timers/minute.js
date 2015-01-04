@@ -7,7 +7,7 @@
  *
  *  Minute timer
  *
- *  Copyright [2013-2014] [David P. Janes]
+ *  Copyright [2013-2015] [David P. Janes]
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ var timer = require('../timer');
  *  Fire an event every minute
  */
 exports.MinuteTimer = function (paramd) {
+    timer.Timer.call(this);
     this.schedule(_.defaults(paramd, {
         id: 'timer',
         name: "once per minute",

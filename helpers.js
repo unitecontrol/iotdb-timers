@@ -105,7 +105,9 @@ exports.make_function = function(_cls, _number) {
         var timer = new _cls(paramd);
 
         if (callback !== undefined) {
+            // console.log("HERE:X.1", timer.__unique_id, timer._events);
             timer.on('timer', callback);
+            // console.log("HERE:X.2", timer.__unique_id, timer._events);
         }
 
         return timer;
