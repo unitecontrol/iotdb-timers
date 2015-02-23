@@ -54,7 +54,8 @@ var format2 = function(d) {
  */
 var defaults = {
     latitude: 43.7, 
-    longitude: -79.4
+    longitude: -79.4,
+    max_delta: 60,
 };
 
 /**
@@ -73,6 +74,7 @@ var Timer = function () {
 
     self.events = [];
     self.when = null;
+    self._timer_id = null;
     self.__unique_id = unique_id++;
 
     // console.log("EVENTS", self._events);
@@ -252,39 +254,6 @@ Timer.prototype._scheduler = function() {
 
     self.events.sort(event_sorter);
 
-    /*
-    // execute all events ready to go
-    var emax = null;
-    for (var ei in self.events) {
-        var event = self.events[ei]
-        if (event.compare() > 0) {
-            break;
-        }
-
-        console.log("---");
-        console.log("HERE:XXX", event, event.compare())
-
-        self._execute(event);
-        emax = ei + 1;
-    }
-        console.log("---");
-
-    // reschedule (and delete if not rescheduable) events that were executed
-    if (emax !== null) {
-        for (var ei = 0; ei < emax; ei++) {
-            var event = self.events[ei]
-            if (!self._reschedule(event)) {
-                self.events.splice(ei, 1);
-                emax--;
-                ei--;
-            }
-        }
-
-        self.events.sort(event_sorter);
-    }
-
-    */
-
     // console.log("HERE:A", self.events.length, self.__unique_id);
     while (true) {
         var event = self.events[0]
@@ -312,9 +281,29 @@ Timer.prototype._scheduler = function() {
         unique_id: self.__unique_id,
     }, "schedule updated");
 
-    setTimeout(function() {
-        self._scheduler();
-    }, delta * 1000);
+
+    /*
+     *  Because the computer can sleep, the process can be stopped,
+     *  &c, we don't let sleeps go to long. It might be worth
+     *  investigating setting up SIGTSTP handlers too, or listenable (?)
+     *  events about the computer going to sleep and waking up
+     */
+    if (self._timer_id) {
+        clearTimeout(self._timer_id);
+        self._timer_id = null;
+    }
+
+    var again = function() {
+        var delta = self.events[0].compare()
+        if (delta > defaults.max_delta) {
+            self._timer_id = setTimeout(again, defaults.max_delta * 1000);
+        } else {
+            self._timer_id = setTimeout(function() {
+                self._scheduler();
+            }, delta * 1000);
+        }
+    };
+    again();
 };
 
 /*
