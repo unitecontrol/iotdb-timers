@@ -60,6 +60,14 @@ exports.isNumber = function(o) {
     return typeof o === 'number';
 };
 
+exports.is = {
+	Date: exports.isDate,
+	Function: exports.isFunction,
+	Number: exports.isNumber,
+	Object: exports.isObject,
+	String: exports.isString,
+};
+
 exports.clone = function(o) {
     if (!exports.isObject(o)) return o;
     if (exports.isArray(o)) return o.slice();
@@ -92,10 +100,10 @@ exports.defaults = function(paramd, defaultd) {
  */
 exports.make_function = function(_cls, _number) {
     return function(paramd, callback) {
-        if (_.isFunction(paramd)) {
+        if (_.is.Function(paramd)) {
             callback = paramd;
             paramd = {};
-        } else if (_.isNumber(paramd)) {
+        } else if (_.is.Number(paramd)) {
             var d = {}
             d[_number] = paramd;
 
@@ -105,9 +113,7 @@ exports.make_function = function(_cls, _number) {
         var timer = new _cls(paramd);
 
         if (callback !== undefined) {
-            // console.log("HERE:X.1", timer.__unique_id, timer._events);
             timer.on('timer', callback);
-            // console.log("HERE:X.2", timer.__unique_id, timer._events);
         }
 
         return timer;
@@ -136,3 +142,5 @@ exports.make_logger = function(d) {
         };
     }
 }
+
+

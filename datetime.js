@@ -41,10 +41,10 @@ var DateTime = function (paramd) {
     var self = this;
 
     var dt_now = new Date();
-    if (_.isDate(paramd)) {
+    if (_.is.Date(paramd)) {
         dt_now = paramd;
         paramd = {};
-    } else if (_.isString(paramd)) {
+    } else if (_.is.String(paramd)) {
         dt_now = new Date(paramd);
         paramd = {};
     }
@@ -94,13 +94,13 @@ DateTime.prototype.set = function(paramd) {
     var self = this;
 
     if (paramd === undefined) {
-    } else if (_.isString(paramd)) {
+    } else if (_.is.String(paramd)) {
         paramd = (new DateTime(paramd)).get();
-    } else if (_.isDate(paramd)) {
+    } else if (_.is.Date(paramd)) {
         paramd = (new DateTime(paramd)).get();
     } else if (paramd._isDateTime) {
         paramd = paramd.get();
-    } else if (_.isObject(paramd)) {
+    } else if (_.is.Object(paramd)) {
     } else {
         throw new Error("unrecognized argument", paramd)
     }
@@ -155,11 +155,11 @@ DateTime.prototype.compare = function(paramd) {
 
     if (paramd === undefined) {
         ms_compare = (new Date()).getTime() / 1000;
-    } else if (_.isString(paramd)) {
+    } else if (_.is.String(paramd)) {
         ms_compare = (new DateTime(paramd)).epoch;
     } else if (paramd._isDateTime) {
         ms_compare = paramd._dd.epoch;
-    } else if (_.isObject(paramd)) {
+    } else if (_.is.Object(paramd)) {
         ms_compare = (new DateTime(paramd)).epoch;
     } else {
         throw new Error("unrecognized argument", paramd)
