@@ -121,7 +121,7 @@ DateTime.prototype.set = function(paramd) {
         ":",
         format2(paramd.second),
         paramd.tz < 0 ? "-" : "+",
-        format2(paramd.tz / 60),
+        format2(Math.floor(paramd.tz / 60)),
         format2(paramd.tz % 60)
     ];
 
