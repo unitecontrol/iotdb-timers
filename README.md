@@ -1,13 +1,17 @@
 iotdb-timers
 ============
 
-Clever timers, such as alarm clocks, on-offs, sunrise / sunset, etc.
+
+<img src="https://raw.githubusercontent.com/dpjanes/iotdb-homestar/master/docs/HomeStar.png" align="right" />
+
+Clever time based events, such as alarm clocks, on-offs, sunrise / sunset, etc.
 
 ## Notes
 
 * mostly second oriented, not millisecond like Javascript
 * if <code>bunyan</code> is installed logging will look a lot better
 * time offset related stuff doesn't work yet, sorry
+* all the clever bits for Sun related code come from [suncalc](https://github.com/mourner/suncalc).
 
 ## Examples
 
@@ -82,13 +86,13 @@ or if you need to specify the different lat/lons
     
 ## 5 minutes before sunrise
 
-    timers.sunset(-5 * 50, function(event) {
+    timers.sunset(-5 * 60, function(event) {
     })
     
 or
 
     timers.sunset({
-    	delta: -5 * 50
+    	delta: -5 * 60
     }, function(event) {
     })
     
