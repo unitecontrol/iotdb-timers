@@ -8,9 +8,8 @@ var iotdb = require('iotdb')
 var timers = require('iotdb-timers');
 
 var lights = iotdb
-    .iot()
     .connect()
-    .with_facet(":device.lighting")
+    .with_facet(":lighting")
     .with_floor("Basement")
     ;
 
