@@ -254,7 +254,6 @@ Timer.prototype._scheduler = function() {
 
     self.events.sort(event_sorter);
 
-    // console.log("HERE:A", self.events.length, self.__unique_id);
     while (true) {
         var event = self.events[0]
         if (event.compare() > 0) {

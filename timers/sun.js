@@ -50,7 +50,7 @@ Sun.prototype._setup = function(paramd) {
 
     // heartbeat
     self._schedule({
-        id: "recalcuate",
+        id: "recalcuate-heartbeat",
         hour: 0,
         day_repeat: 1
     })
@@ -76,7 +76,7 @@ var _make = function(name_what, name_class, name_function) {
     exports[name_class] = function(paramd) {
         Sun.call(this);
         var self = this;
-        
+
         paramd = _.defaults(paramd, {
             what: name_what
         });
