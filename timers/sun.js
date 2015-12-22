@@ -49,6 +49,8 @@ Sun.prototype._setup = function(paramd) {
     self.when = null;
 
     // heartbeat
+    // see https://github.com/dpjanes/iotdb-timers/issues/1
+    // for possible improvements
     self._schedule({
         id: "recalcuate-heartbeat",
         hour: 0,
