@@ -135,7 +135,6 @@ DateTime.prototype.set = function(paramd) {
 
     paramd.epoch = dt_when.getTime() / 1000.0;
     paramd.isoweekday = ( dt_when.getDay() + 6 ) % 7 + 1;
-    paramd.isodatetime = dt_when.toISOString();
 
     self._dd = paramd;
 }

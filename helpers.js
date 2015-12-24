@@ -128,10 +128,11 @@ exports.make_logger = function(d) {
         });
     } else {
         var l = function() {
+            /*
             console.log("--");
             for (var ai in arguments) {
                 console.log(JSON.stringify(arguments[ai], null, 2).replace(/^/gm, '  '));
-            }
+            }*/
         };
 
         return {
